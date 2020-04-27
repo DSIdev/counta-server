@@ -1,3 +1,5 @@
+// Load env vars
+require('dotenv').config()
 // Import App Options
 const conf = require("./config/dev");
 
@@ -27,6 +29,21 @@ fastify.register(
   }
 )
 
+
+const oauthPlugin = require('fastify-oauth2')
+fastify.register(oauthPlugin, {
+  name: 'googleOAuth2',
+  scope: ['profile'],
+  credentials: {
+    client: {
+      id: process.env.GOOGLE_OAUTH_CLIENT_ID,
+      secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET
+    },
+    auth: oauthPlugin.GOOGLE_CONFIGURATION
+  },
+  startRedirectPath: '/login/google',
+  callbackUri: 'http://localhost:3000/login/google/callback'
+})
 // Enable CORS for all origins
 fastify.register(require("fastify-cors"), {
   origin: "*"
