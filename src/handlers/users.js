@@ -2,13 +2,13 @@ module.exports = function userHandlers(fastify, opts, next) {
 	// Models
 	// User = fastify.mongoose
 
-	fastify.get("/", {}, async function (req, res) {
+	fastify.get("/", { secure: true, authType: "googleOAuth2" }, async function (req, res) {
 		const out = await fastify.mongoose.User.find({}).lean()
 
 		res.send(out)
 	})
 
-	fastify.post("/", {}, async function (req, res) {
+	fastify.post("/", { secure: true, authType: "googleOAuth2" }, async function (req, res) {
 		userDetails = {
 			"fullName": req.body.fullName,
 			"email": req.body.email,

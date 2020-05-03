@@ -13,6 +13,9 @@ const fastify = require("fastify")({
   onProtoPoisoning: "remove"
 });
 
+// Setup route level hooks
+fastify.addHook("onRoute", require("./hooks/auth"));
+
 // MongoDB connection - Mongoose
 fastify.register(
   require("fastify-mongoose-driver").plugin,
@@ -57,7 +60,7 @@ fastify.register(require("./routes"), { prefix: "/api" })
 const start = async () => {
   try {
     await fastify.listen(conf.PORT, "0.0.0.0");
-    // log.info(`server listening on ${fastify.server.address().port}`);
+    // log.info(`server listening on ${ fastify.server.address().port }`);
     console.log(`Listening for incoming requests.`);
   } catch (err) {
     console.log(err);
