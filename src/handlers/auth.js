@@ -1,12 +1,9 @@
-module.exports = function userHandlers(fastify, opts, next) {
-	// Models
-	// console.log(fastify.mongoose.User.find)
-	// User = fastify.mongoose
+module.exports = function authHandlers(fastify, opts, next) {
 
-	fastify.get("/google", {}, async function (req, res) {
-		console.log(fastify.googleOAuth2)
-		fastify.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(req,
-			(err, result) => err ? res.send(err) : res.send("okay"))
+	fastify.get("/google/callback", {}, async function (req, res) {
+		const token = await fastify.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(req)
+		console.log({ token })
+		res.redirect("http://localhost:3002/?token=" + token.access_token)
 	})
 
 	next()

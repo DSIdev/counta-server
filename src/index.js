@@ -33,17 +33,18 @@ fastify.register(
 const oauthPlugin = require('fastify-oauth2')
 fastify.register(oauthPlugin, {
   name: 'googleOAuth2',
-  scope: ['profile'],
+  scope: ['profile email'],
   credentials: {
     client: {
       id: process.env.GOOGLE_OAUTH_CLIENT_ID,
       secret: process.env.GOOGLE_OAUTH_CLIENT_SECRET
     },
-    auth: oauthPlugin.GOOGLE_CONFIGURATION
+    auth: oauthPlugin.GOOGLE_CONFIGURATION,
   },
-  startRedirectPath: '/login/google',
-  callbackUri: 'http://localhost:3000/login/google/callback'
+  startRedirectPath: '/api/auth/google',
+  callbackUri: 'http://localhost:3000/api/auth/google/callback'
 })
+
 // Enable CORS for all origins
 fastify.register(require("fastify-cors"), {
   origin: "*"
