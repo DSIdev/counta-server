@@ -3,25 +3,26 @@
 const userSchema = {
   name: "User",
   schema: {
-    contactName: {
+    fullName: {
       type: String,
-      required: true,
+      required: [true, "Full Name is required"],
       minlength: 6,
       maxlength: 20
     },
     username: {
       type: String,
-      required: true,
+      required: [true, "User Name is required"],
       immutable: true
     },
     encpwd: {
       type: String,
       required: true,
-      minlength: 20
+      default: Date.now(),
+      minlength: 8
     },
     email: {
       type: String,
-      lowercase: true,
+      lowercase: [true, "email address is required"],
       trim: true,
       maxlength: 40
     },
