@@ -16,7 +16,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
-    "fastify": "^2.0.0",
+    "fastify": "^2.15.1",
     "fastify-cors": "^2.1.3",
     "fastify-mongodb": "^1.0.1",
     "fastify-mongoose-driver": "^3.2.0",
